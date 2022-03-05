@@ -19,6 +19,9 @@ class CreateProductsTable extends Migration
             $table->integer('size_name_id')->references('id')->on('sizes');
             $table->integer('category_name_id')->references('id')->on('product_categories');
             $table->string('product_image');
+            $table->double('div', 8, 3);
+            $table->double('product_kall');
+            $table->double('product_uglevot', 8,3);
             $table->timestamps();
         });
     }

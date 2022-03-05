@@ -15,8 +15,8 @@ class CreateOneDayMenusTable extends Migration
     {
         Schema::create('titlemenus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('menu_name');
-            $table->integer('menu_season_id')->references('id')->on('seasons');
+            $table->string('titlemenu_name');
+            $table->integer('titlemenu_season_id')->references('id')->on('seasons');
             $table->timestamps();
         });
     }

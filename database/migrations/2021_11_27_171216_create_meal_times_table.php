@@ -15,6 +15,7 @@ class CreateMealTimesTable extends Migration
     {
         Schema::create('meal_times', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('meal_time_id');
             $table->string('meal_time_name');
             $table->timestamps();
         });
