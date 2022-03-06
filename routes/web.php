@@ -132,6 +132,7 @@ Route::group(['prefix' => 'technolog', 'middleware' => ['isTechnolog', 'auth']],
     
     Route::get('createnextdaypdf', [TestController::class, 'createnextdaypdf'])->name('technolog.createnextdaypdf');
     Route::get('createnewdaypdf/{id}', [TestController::class, 'createnewdaypdf'])->name('technolog.createnewdaypdf');
+    Route::post('productAdd', [Technologcontroller::class, 'productAdd'])->name('technolog.productAdd');
     
 });
 
