@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             Age_rangeTableSeeder::class,
             Meal_timeTableSeeder::class,
             SeasonsTableSeeder::class,
+            UsersTableSeeder::class,
             SizeTableSeeder::class,
         ]);
     }
