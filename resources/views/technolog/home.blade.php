@@ -29,46 +29,6 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <div id="timeline">
-        <!-- //date -->
-        @if(!empty($date) and count($date)>2)
-        <div class="dot" id="one">
-            <a href="{{ route('technolog.sendmenu', ['day'=> $date[count($date)-1]->id]); }}"><span>{{ $date[count($date)-1]->day_number }}</span></a>
-            <date>{{ $date[count($date)-1]->month_name }}</date>
-        </div>
-        @endif
-        <!-- @if(!empty($date) and count($date)>1)
-        <div class="dot" id="two">
-            <a href="{{ route('technolog.sendmenu', ['day'=> $date[1]->id]); }}"><span>{{ $date[1]->day_number }}</span></a>
-            <date>{{ $date[1]->month_name }}</date>
-        </div>
-        @endif -->
-        @if(!empty($date) and count($date)>0)
-        <div class="dot" id="three">
-            <a href="{{ route('technolog.sendmenu', ['day'=> $date[0]->id]); }}"><span>{{ $date[0]->day_number }}</span></a>
-            <date>{{ $date[0]->month_name }}</date>
-        </div>
-        @endif
-        @if(empty($date))
-        <div class="dot" id="four" type="button" data-bs-toggle="modal" data-bs-target="#exampleModals">
-            <span>{{ date("d", $tomm) }}</span>
-            <date>{{ date("F", $tomm) }}</date>
-        </div>
-        @elseif($date[0]->day_number != date("d", $tomm))
-        <div class="dot" id="four" type="button" data-bs-toggle="modal" data-bs-target="#exampleModals">
-            <span>{{ date("d", $tomm) }}</span>
-            <date>{{ date("F", $tomm) }}</date>
-        </div>
-        @endif 
-        <!-- $date[0]->day_number == date("d", $tomm) -->
-        @if(1)
-        <div class="dot" id="four2">
-            <a href="{{ route('technolog.sendmenu', ['day'=> date('d-F-Y', $tomm)]); }}"><span>{{ "T" }}</span></a>
-            <date>{{ "Taxminiy" }}</date>
-        </div>
-        @endif
-        <div class="inside"></div>
-    </div>
 
     <!-- Modals -->
     <!-- Button trigger modal -->

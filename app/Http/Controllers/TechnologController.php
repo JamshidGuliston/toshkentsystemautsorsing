@@ -58,7 +58,8 @@ class TechnologController extends Controller
         $kingar = Kindgarden::all();
         $nextdaymenu = Nextday_namber::all();
         $season = Season::where('hide', 1)->first();
-        $menus = Titlemenu::where('menu_season_id', $season->id)->get();
+
+        $menus = Titlemenu::all();
         // dd($season);
         date_default_timezone_set('Asia/Tashkent');
         // date("h:i:sa:M-d-Y");
