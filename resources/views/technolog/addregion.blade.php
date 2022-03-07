@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('leftmenu')
-@include('technolog.sidemenu'); 
-@endsection
-
 
 @section('css')
 <link href="/css/multiselect.css" rel="stylesheet"/>
@@ -25,12 +21,14 @@
 </style>
 @endsection
 
-
+@section('leftmenu')
+@include('technolog.sidemenu'); 
+@endsection
 
 @section('content')
 <div class="py-5 px-5">
-    <h2>Янги боғча</h2>
-    <form method="POST" action="{{route('technolog.createkingarden')}}">
+    <h2>Янги худут</h2>
+    <form method="POST" action="{{route('technolog.createregion')}}">
         @csrf
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Номи: </label>
@@ -38,28 +36,6 @@
                 <input type="text" name="name" class="form-control" id="staticEmail" required>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">ҳудуди</label>
-            <div class="col-sm-10">
-                <select required id='testSelect1' name="regionid" class="form-select" >
-                    <option value="">--Tanlang--</option>
-                    @foreach($regions as $row)
-                    <option value='{{ $row->id }}'>{{ $row->region_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-
-<label for="inputPassword" class="col-sm-3 col-form-label">Bolalar guruhi</label>
-@foreach($ages as $rows)
-<?php $i = 1; ?>
-<div class="col-sm-3"> 
-    <input class="form-check-input" name="yongchek[]" type="checkbox" id="inlineCheckbox1" value="{{$rows['id']}}">
-    <label class="form-check-label" for="inlineCheckbox1">{{$rows['age_name']}}</label>
-</div>
-@endforeach
-</div>
         
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Ish faoliyati</label>
@@ -80,9 +56,30 @@
 
 
 @section('script')
-
 <script>
+	document.multiselect('#testSelect1')
+		.setCheckBoxClick("checkboxAll", function(target, args) {
+			console.log("Checkbox 'Select All' was clicked and got value ", args.checked);
+		})
+		.setCheckBoxClick("1", function(target, args) {
+			console.log("Checkbox for item with value '1' was clicked and got value ", args.checked);
+		});
+    
+    document.multiselect('#testSelect2')
+		.setCheckBoxClick("checkboxAll", function(target, args) {
+			console.log("Checkbox 'Select All' was clicked and got value ", args.checked);
+		})
+		.setCheckBoxClick("1", function(target, args) {
+			console.log("Checkbox for item with value '1' was clicked and got value ", args.checked);
+		});
 
+	function enable() {
+		document.multiselect('#testSelect1').setIsEnabled(true);
+	}
+
+	function disable() {
+		document.multiselect('#testSelect1').setIsEnabled(false);
+	}
 </script>
 
 @endsection

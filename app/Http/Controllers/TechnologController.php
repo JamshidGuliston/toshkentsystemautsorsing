@@ -478,6 +478,7 @@ class TechnologController extends Controller
         $region = Region::all();
         // dd($kgarden->age_range);
         return view('technolog.settings', ['garden' => $kgarden, 'ages' => $age, 'regions' => $region]);
+    
     }
 
     public function ageranges(Request $request, $id)
@@ -1271,22 +1272,7 @@ class TechnologController extends Controller
         return redirect()->route('technolog.sendmenu', ['day' => date("d-F-Y", $d)]);
     }
 
-    public function addkindgarden(Request $request){
-        Kindgarden::create([
-            'region_id' => $request->regionid,
-            'kingar_name' => $request->name,
-            'kingar_password' => 0,
-            'telegram_user_id' => 0,
-            'worker_count' => 0,
-            'hide' => $request->hide
-        ]);
 
-        return redirect()->route('', );
-    }
-
-    public function addregion(Request $request){
-        
-    }
 
     // sklad
     public function addshopproduct(Request $request, $dayid=0){
@@ -1433,6 +1419,57 @@ class TechnologController extends Controller
         // dd($minusproducts);
         return view('technolog.plusmultistorage', ['plusproducts' => $plusproducts, 'minusproducts' => $minusproducts, 'kingar' => $king, 'days' => $days]); 
     }
+
+    public function seeregions(){
+        $region = Region::all();
+        return view('technolog.seeregions', ['regions'=> $region]);
+    }
+
+    public function addregion(){
+        return view('technolog.addregion');
+    }
+
+
+     public function createregion(Request $request)
+    {
+        Region::create([
+            'region_name'=> $request->name,
+        ]);
+        return $this->seeregions();
+    }
+
+    public function seekingardens(){
+        $seekingardens = Kindgarden::all();
+        return view('technolog.seekingardens', ['kingardens'=> $seekingardens]);
+    }
+
+    
+    public function createkingarden(Request $request){
+        $kind = Kindgarden::create([
+            'region_id' => $request->regionid,
+            'kingar_name' => $request->name,
+            'kingar_password' => 0,
+            'telegram_user_id' => 0,
+            'worker_count' => 0,
+            'worker_age_id'=>1,
+            'hide' => $request->hide
+        ]);
+        $tags = $request->yongchek;
+        $kind->age_range()->sync($tags);
+
+        return $this->seekingardens();
+    }
+
+    public function addkingardens(){
+       $regions= Region::all();
+       $ages=Age_range::all();
+       return view('technolog.addkingardens', ['regions'=>$regions, 'ages'=>$ages]);
+
+    }
+
+    
+
+
     //  /////////////////////////////////////////
 
     function curl_get_contents($url)

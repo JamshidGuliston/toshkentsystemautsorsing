@@ -135,6 +135,13 @@ Route::group(['prefix' => 'technolog', 'middleware' => ['isTechnolog', 'auth']],
     
     Route::post('productAdd', [Technologcontroller::class, 'productAdd'])->name('technolog.productAdd');
     Route::post('addkindgarden', [Technologcontroller::class, 'addkindgarden'])->name('technolog.addkindgarden');
+    Route::get('seeregions', [Technologcontroller::class, 'seeregions'])->name('technolog.seeregions');
+    Route::get('addregion', [Technologcontroller::class, 'addregion'])->name('technolog.addregion');
+    Route::post('createregion', [Technologcontroller::class, 'createregion'])->name('technolog.createregion');
+    Route::get('seekingardens', [Technologcontroller::class, 'seekingardens'])->name('technolog.seekingardens');
+    Route::post('createkingarden', [Technologcontroller::class, 'createkingarden'])->name('technolog.createkingarden');
+    Route::get('addkingardens', [Technologcontroller::class, 'addkingardens'])->name('technolog.addkingardens');
+    
     
 });
 
