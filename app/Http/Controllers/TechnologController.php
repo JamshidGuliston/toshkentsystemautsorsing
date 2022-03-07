@@ -1271,6 +1271,23 @@ class TechnologController extends Controller
         return redirect()->route('technolog.sendmenu', ['day' => date("d-F-Y", $d)]);
     }
 
+    public function addkindgarden(Request $request){
+        Kindgarden::create([
+            'region_id' => $request->regionid,
+            'kingar_name' => $request->name,
+            'kingar_password' => 0,
+            'telegram_user_id' => 0,
+            'worker_count' => 0,
+            'hide' => $request->hide
+        ]);
+
+        return redirect()->route('', );
+    }
+
+    public function addregion(Request $request){
+        
+    }
+
     // sklad
     public function addshopproduct(Request $request, $dayid=0){
         $months = Month::all();
