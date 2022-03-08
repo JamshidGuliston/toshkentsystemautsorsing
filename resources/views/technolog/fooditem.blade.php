@@ -84,7 +84,7 @@
         @csrf
         <input type="hidden" name="titleid" value="{{$id}}">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="product-select">
                     <select class="form-select" name="productid" required aria-label="Default select example">
                         <option value="">--Mahsulotlar--</option>
@@ -96,16 +96,13 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" name="foodweight" placeholder="Og'irligi" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <span class="input-group-text" id="basic-addon2">Gramda</span>
-                </div>
+            @foreach($ages as $row)
+            <div class="col-md-{{ 9 / count($ages) }}">
+                <input type="text" class="form-control" name="foodweight[]" placeholder="gram {{ $row->age_name }}" required>
             </div>
-                <div class="sub" style="display: flex;justify-content: end;">
-                    <button class="btn btn-dark">Qo'shish</button>
-                </div>
+            @endforeach
+            <div class="sub" style="display: flex;justify-content: end; margin-top: 10px">
+                <button class="btn btn-dark">Qo'shish</button>
             </div>
         </div>
     </form>

@@ -932,12 +932,20 @@ class TechnologController extends Controller
 
     public function addproductfood(Request $request)
     {
-        Food_composition::create([
-            'food_name_id' => $request->titleid,
-    	    'product_name_id' => $request->productid,
-            'product_weight' => $request->foodweight,
-
-        ]);
+        foreach($request->foodweight as $key => $value){
+            $row = Food_composition::where('food_name_id', $request->titleid)
+                                    ->where('product_name_id', $request->productid)
+                                    ->where('age_id', $key+1)
+                                    ->get();
+            if($row->count() == 0){
+                Food_composition::create([
+                    'food_name_id' => $request->titleid,
+                    'product_name_id' => $request->productid,
+                    'age_id' => $key+1,
+                    'product_weight' => $value,
+                ]);
+            }
+        }
         return redirect()->route('fooditem', $request->titleid);
     }
 
@@ -1116,15 +1124,19 @@ class TechnologController extends Controller
         $html = $html."</tr>
                 </thead>
                 <tbody>";
-        foreach($foodcom as $product){
+        $bool = [];
+        for($i = 0; $i < count($foodcom); $i++){
+            if(!isset($bool[$foodcom[$i]['id']])){
+                $bool[$foodcom[$i]['id']] = 1;
             $html = $html."<tr>
-                <td><input type='hidden' name='products[]' value='".$product->id."'></td>
-                <td>".$product->product_name."</td>";
+                <td><input type='hidden' name='products[]' value='".$foodcom[$i]['id']."'></td>
+                <td>".$foodcom[$i]['product_name']."</td>";
                 foreach($menu->age_range as $row){
-                    $html = $html."<td><input type='text' name='ages".$product->id."[]' required style='width: 100%;'></td>";
+                    $html = $html."<td><input type='text' name='ages".$foodcom[$i]['id']."[]' value='".$foodcom[$i++]['product_weight']."' required style='width: 100%;'></td>";
                 }
-                
+                $i--;
                 $html = $html."</tr>";
+            }
         }
         $html = $html."</tbody>
             </table>";
@@ -1478,8 +1490,8 @@ class TechnologController extends Controller
     }
 
     public function productadd(){
-        $sizes= Size::all();
-        $categoryes=Category::all();
+        $sizes = Size::all();
+        $categoryes = Product_category::all();
         return view('technolog.productadd', ['sizes'=>$sizes, 'categories'=>$categoryes]);
     }
 
