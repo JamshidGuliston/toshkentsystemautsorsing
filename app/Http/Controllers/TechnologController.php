@@ -37,6 +37,7 @@ use App\Models\Shop;
 use App\Models\Size;
 use App\Models\titlemenu_food;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Artisan;
 use TCG\Voyager\Models\Category;
 
 class TechnologController extends Controller
@@ -914,8 +915,9 @@ class TechnologController extends Controller
         $productall = Product::all();
         $food = Food_composition::where('food_name_id', $id)->join('food', 'food.id', '=', 'food_compositions.food_name_id')
                         ->join('products', 'products.id', '=', 'food_compositions.product_name_id')
-                        ->get(['food_compositions.id', 'food.food_name','products.product_name']);
+                        ->get(['food_compositions.product_weight','food_compositions.id', 'food.food_name','products.id as productid','products.product_name']);
         // dd($food);
+        $ages= Age_range::all();
         foreach($food as $item){
             $t = 0;
             foreach($productall as $pro){
@@ -925,14 +927,16 @@ class TechnologController extends Controller
                 $t++;
             }
         }
-        return view('technolog.fooditem', compact('food', 'productall', 'id'));
+        return view('technolog.fooditem',  compact('food', 'productall', 'id', 'ages'));
     }
 
     public function addproductfood(Request $request)
     {
         Food_composition::create([
             'food_name_id' => $request->titleid,
-    	    'product_name_id' => $request->productid
+    	    'product_name_id' => $request->productid,
+            'product_weight' => $request->foodweight,
+
         ]);
         return redirect()->route('fooditem', $request->titleid);
     }
@@ -946,7 +950,8 @@ class TechnologController extends Controller
     {
         Food_composition::where('id', $request->id)
             ->update([
-    	        'product_name_id' => $request->productid
+    	        'product_name_id' => $request->productid,
+                'product_weight'=> $request->foodweight
             ]);
         
         return redirect()->route('fooditem', $request->titleid);
@@ -966,7 +971,9 @@ class TechnologController extends Controller
             'food_cat_id' => $request->catid,
             'meal_time_id' => $request->timeid,
             'food_prepar_tech' => '...',
-            'food_image' => 'png.png'
+            'food_image' => 'png.png',
+            'food_full_kall'=> $request->foodcall,
+            'food_full_weight'=> $request->foodwight,
         ]);
 
         return redirect()->route('food');
@@ -980,7 +987,9 @@ class TechnologController extends Controller
 
     public function menus(Request $request, $id)
     {
-        $menus = Titlemenu::where('menu_season_id', $id)->get();
+
+        $menus = Titlemenu::all();
+        // dd($menus);
         $works = Nextday_namber::all();
         for($i = 0; $i < count($menus); $i++){
             $menus[$i]['us'] = 0;
@@ -1003,8 +1012,9 @@ class TechnologController extends Controller
     {
         // dd($request->all());
         $menu = Titlemenu::create([
-            'menu_name' => $request->name,
-            'menu_season_id' => $request->seasonid
+            
+            'titlemenu_name' => $request->name,
+            'titlemenu_season_id' => $request->seasonid
         ]);
 
         $age = $request->yongchek;
@@ -1026,8 +1036,8 @@ class TechnologController extends Controller
                 ->orderby('menu_compositions.menu_meal_time_id', 'ASC')
                 ->orderby('menu_compositions.id', 'ASC')
                 ->get([
-                    'titlemenus.menu_name', 
-                    'titlemenus.menu_season_id', 
+                    'titlemenus.titlemenu_name', 
+                    'titlemenus.titlemenu_season_id', 
                     'titlemenus.id as menuid', 
                     'meal_times.meal_time_name', 
                     'meal_times.id as meal_timeid', 
@@ -1457,6 +1467,7 @@ class TechnologController extends Controller
         $tags = $request->yongchek;
         $kind->age_range()->sync($tags);
 
+        Artisan::call('cache:clear');
         return $this->seekingardens();
     }
 
@@ -1464,7 +1475,12 @@ class TechnologController extends Controller
        $regions= Region::all();
        $ages=Age_range::all();
        return view('technolog.addkingardens', ['regions'=>$regions, 'ages'=>$ages]);
+    }
 
+    public function productadd(){
+        $sizes= Size::all();
+        $categoryes=Category::all();
+        return view('technolog.productadd', ['sizes'=>$sizes, 'categories'=>$categoryes]);
     }
 
     

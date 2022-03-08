@@ -82,7 +82,10 @@
 @section('script')
 
 <script>
-
+ const reloadUsingLocationHash = () => {
+      window.location.hash = "reload";
+    }
+    window.onload = reloadUsingLocationHash();
 </script>
 
 @endsection

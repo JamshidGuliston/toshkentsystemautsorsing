@@ -8,6 +8,9 @@
 
 @section('content')
 <div class="container-fluid px-4">
+<div style="text-align: end;">
+        <a href="/technolog/productadd">+ qo'shish</a>
+    </div>
     <div class="row g-3 my-2">
         @foreach($products as $row)
         <div class="col-md-2">

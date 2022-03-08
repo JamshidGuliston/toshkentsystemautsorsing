@@ -24,60 +24,57 @@
 
 @section('content')
 <div class="py-5 px-5">
-    <h2>{{ $product->product_name }}</h2>
-    <form method="POST" action="{{route('productAdd')}}">
+    <h2>Maxsulot qo'shish</h2>
+    <form method="POST" action="{{route('technolog.createproduct')}}">
         @csrf
-        <input type="hidden" name="productid" value="{{ $product->id }}" >
+
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Номи</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" class="form-control" id="staticEmail" required>
+            </div>
+        </div>
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Сатегория</label>
             <div class="col-sm-10">
-                <select class="form-select" name="catid" aria-label="Default select example">
-                    @foreach($categories as $row)
-                    @if($product->category_name_id == $row->id)
-                    <option selected value="{{$row['id']}}">{{$row['pro_cat_name']}}</option>
-                    @else
+                <select class="form-select"  name="catid" aria-label="Default select example" required>
+                <option value="" selected>--Tanlang--</option>   
+                @foreach($categories as $row)
                     <option value="{{$row['id']}}">{{$row['pro_cat_name']}}</option>
-                    @endif
-
                     @endforeach
                 </select>
             </div>
         </div>
+
+    
 
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Ўлчов бирлиги</label>
             <div class="col-sm-10">
                 <select class="form-select" name="sizeid" aria-label="Default select example">
                     @foreach($sizes as $row)
-                    @if($product->size_name_id == $row->id)
-                    <option selected value="{{$row['id']}}">{{$row['size_name']}}</option>
-                    @else
                     <option value="{{$row['id']}}">{{$row['size_name']}}</option>
-                    @endif
-
                     @endforeach
                 </select>
             </div>
         </div>
-
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Ўлчов бирлигини ифодаловчи бўлувчи миқдори</label>
             <div class="col-sm-10">
-                <input type="text" name="div" class="form-control" id="staticEmail" value="{{ $product->div }}" required>
+                <input type="text" name="div" class="form-control" id="staticEmail"  required>
             </div>
         </div>
-
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Тартиби</label>
             <div class="col-sm-10">
-                <input type="text" name="sort" class="form-control" id="staticEmail" value="{{ $product->sort }}" required>
+                <input type="text" name="sort" class="form-control" id="staticEmail" required>
             </div>
         </div>
         
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Ish faoliyati</label>
             <div class="col-sm-10">
-                <input type="number" required name="hide" class="form-control" value="{{ $product->hide }}">
+                <input type="number" required name="hide" class="form-control" >
             </div>
         </div>
         <div class="form-group row">

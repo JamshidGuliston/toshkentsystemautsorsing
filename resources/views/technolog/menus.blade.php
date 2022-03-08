@@ -15,7 +15,7 @@
             <div class="p-3 bg-white shadow-sm d-flex flex-column justify-content-around align-items-center rounded">
                 <i class="fas fa-utensils fs-1 primary-text border rounded-full secondary-bg p-2" style="color:chocolate"></i>
                 <div class="text-center">
-                    <p class="fs-4" style="font-size: 18px !important;">{{$row['menu_name']}}</p>
+                    <p class="fs-4" style="font-size: 18px !important;">{{$row['titlemenu_name']}}</p>
                     <a href="#" style="color: #959fa3; margin-right: 6px; font-size: 20px;"><i class="fas fa-cog"></i></a>
                     <a href="#" style="color: #959fa3; margin-right: 6px; font-size: 20px;"><i class="fas fa-eye"></i></a>
                     @if($row->us == "1111")
