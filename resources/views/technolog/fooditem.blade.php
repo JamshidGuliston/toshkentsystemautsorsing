@@ -117,6 +117,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">Maxsulot</th>
                         <th scope="cal">Og'irligi</th>
+                        <th scope="cal">Yosh oraliq</th>
                         <th scope="col" style="text-align: end;">Tahrirlash</th>
                     </tr>
                 </thead>
@@ -127,6 +128,15 @@
                         <th scope="row">{{ ++$i }}</th>
                         <td>{{ $item->product_name }}</td>
                         <td>{{ $item->product_weight }}</td>
+                        <td>
+                        @if($item->age_id == 1)
+                            {{ "4-7 Ёш " }}
+                        @elseif($item->age_id == 2)
+                            {{ "3-4 Ёш " }}
+                        @else
+                            {{ "Қисқа гурух" }}
+                        @endif
+                        </td>
                         <td style="text-align: end;"><i data-edites-id="{{ $item->id }}" data-praduct-id="{{$item->productid}}" data-weight="{{$item->product_weight}}" class="editess far fa-edit text-info" data-bs-toggle="modal" data-product-name="{{$item->product_name}}" data-bs-target="#exampleModal" data-kinid="" style="cursor: pointer; margin-right: 16px;"> </i><i class="detete  fa fa-trash" aria-hidden="true"  data-delet-id="{{$item->id}}" data-bs-toggle="modal" style="cursor: pointer;" data-bs-target="#exampleModalss"></i></td>
                     </tr>
                     @endforeach

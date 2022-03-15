@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/app.css?ver=1.0" />
     <link rel="stylesheet" href="/css/storage/date.css" />
     <link rel="icon" href="https://icon-library.com/images/art-icon-png/art-icon-png-29.jpg"/>
-    <title>Nishon Invest</title>
+    <title>|----|</title>
     @yield('css')
 </head>
 
@@ -72,8 +72,8 @@
     </div>
     <!-- /#page-content-wrapper -->
     </div>
-    <script src="https://data.guldu.uz/templates/default/jquery/jquery-2.2.4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-2.2.4.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");

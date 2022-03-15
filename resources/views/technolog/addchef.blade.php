@@ -27,22 +27,42 @@
 
 @section('content')
 <div class="py-5 px-5">
-    <h2>Янги худут</h2>
-    <form method="POST" action="{{route('technolog.createregion')}}">
+    <h2>Oshpaz qo'shish</h2>
+    <form method="POST" action="{{route('technolog.createchef')}}">
         @csrf
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Номи: </label>
+            <label for="staticEmail" class="col-sm-2 col-form-label">Исми: </label>
             <div class="col-sm-10">
                 <input type="text" name="name" class="form-control" id="staticEmail" required>
             </div>
         </div>
         
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Ish faoliyati</label>
+            <label for="inputPassword" class="col-sm-2 col-form-label">Емаил:</label>
             <div class="col-sm-10">
-                <input type="number" required name="hide" class="form-control" value="1">
+                <input type="email" required name="email" class="form-control">
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Парол:</label>
+            <div class="col-sm-10">
+                <input type="text" required name="password" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Боғча:</label>
+            <div class="col-sm-10">
+                <select required id='testSelect1' name="kinid" class="form-select" >
+                    <option value="">--Tanlang--</option>
+                    @foreach($kindgardens as $row)
+                    <option value='{{ $row->id }}'>{{ $row->kingar_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
@@ -50,7 +70,7 @@
             </div>
         </div>
     </form>
-    <a href="/technolog/seeregions">Orqaga</a>
+    <a href="/technolog/allchefs">Orqaga</a>
 </div>
 @endsection
 

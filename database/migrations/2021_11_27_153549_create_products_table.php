@@ -18,10 +18,15 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->integer('size_name_id')->references('id')->on('sizes');
             $table->integer('category_name_id')->references('id')->on('product_categories');
+            $table->integer('norm_cat_id');
             $table->string('product_image');
             $table->double('div', 8, 3);
-            $table->double('product_kall');
-            $table->double('product_uglevot', 8,3);
+            $table->integer('sort');
+            $table->integer('term');
+            $table->double('product_oqsil', 8, 3);
+            $table->double('product_yog', 8, 3);
+            $table->double('product_uglevot', 8, 3);
+            $table->double('product_ener', 8, 3);
             $table->timestamps();
         });
     }

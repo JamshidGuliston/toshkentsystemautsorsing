@@ -13,8 +13,15 @@ class Product extends Model
         'product_name',
         'size_name_id',
         'category_name_id',
+        'norm_cat_id',
         'product_image',
-        'div'
+        'div',
+        'sort',
+        'term',
+        'product_oqsil',
+        'product_yog',
+        'product_uglevot',
+        'product_ener'
     ];
 
     public function shop(){

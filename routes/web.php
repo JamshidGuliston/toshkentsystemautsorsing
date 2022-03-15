@@ -142,7 +142,16 @@ Route::group(['prefix' => 'technolog', 'middleware' => ['isTechnolog', 'auth']],
     Route::get('addkingardens', [Technologcontroller::class, 'addkingardens'])->name('technolog.addkingardens');
     Route::post('createproduct', [Technologcontroller::class, 'createproduct'])->name('technolog.createproduct');    
     Route::get('productadd', [Technologcontroller::class, 'productadd'])->name('technolog.productadd');
+
+    Route::get('allchefs', [Technologcontroller::class, 'allchefs'])->name('technolog.allchefs');
+    Route::get('addchef', [Technologcontroller::class, 'addchef'])->name('technolog.addchef');
+    Route::post('createchef', [Technologcontroller::class, 'createchef'])->name('technolog.createchef');
+    Route::get('chefsettings', [Technologcontroller::class, 'chefsettings'])->name('technolog.chefsettings');
     
+});
+
+Route::group(['prefix' => 'chef', 'middleware' => ['isChef', 'auth']], function () {
+    Route::get('home', [ChefController::class, 'index'])->name('chef.home');
 });
 
 Route::get('/minusp', [TestController::class, 'minusproduct']);

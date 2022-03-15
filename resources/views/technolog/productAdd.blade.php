@@ -46,8 +46,6 @@
             </div>
         </div>
 
-    
-
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Ўлчов бирлиги</label>
             <div class="col-sm-10">
@@ -58,6 +56,19 @@
                 </select>
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Норма Сатегория</label>
+            <div class="col-sm-10">
+                <select class="form-select"  name="normcatid" aria-label="Default select example" required>
+                <option value="" selected>--Tanlang--</option>   
+                @foreach($norms as $row)
+                    <option value="{{$row['id']}}">{{$row['norm_name']}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
         <div class="form-group row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Ўлчов бирлигини ифодаловчи бўлувчи миқдори</label>
             <div class="col-sm-10">
@@ -65,9 +76,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Тартиби</label>
+            <label for="staticEmail" class="col-sm-2 col-form-label">Яроқлилиги</label>
             <div class="col-sm-10">
-                <input type="text" name="sort" class="form-control" id="staticEmail" required>
+                <input type="number" name="term" class="form-control" id="staticEmail" required>
             </div>
         </div>
         

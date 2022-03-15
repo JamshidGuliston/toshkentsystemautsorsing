@@ -21,4 +21,8 @@ class Kindgarden extends Model
     public function age_range(){
         return $this->belongsToMany(Age_range::class);
     }
+
+    public function user(){
+        return $this->belongsToMany(User::class, 'user_kindgarden');
+    }
 }

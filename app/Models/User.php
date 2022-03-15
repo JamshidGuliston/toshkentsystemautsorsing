@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -46,4 +47,8 @@ class User extends \TCG\Voyager\Models\User
     public function role() {
 		return $this->belongsTo('TCG\Voyager\Models\Role', 'role_id');
 	}	
+
+    public function kindgarden(){
+        return $this->belongsToMany(Kindgarden::class, 'user_kindgarden');
+    }
 }

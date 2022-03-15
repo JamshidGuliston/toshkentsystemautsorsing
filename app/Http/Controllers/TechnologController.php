@@ -28,16 +28,19 @@ use App\Models\history_process;
 use App\Models\Meal_time;
 use App\Models\minus_multi_storage;
 use App\Models\Nextday_namber;
+use App\Models\Norm_category;
 use App\Models\order_product_structure;
 use App\Models\plus_multi_storage;
 use App\Models\Product;
 use App\Models\Product_category;
 use App\Models\Season;
 use App\Models\Shop;
+use App\Models\User;
 use App\Models\Size;
 use App\Models\titlemenu_food;
 use Dompdf\Dompdf;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
+use Artisan;
 use TCG\Voyager\Models\Category;
 
 class TechnologController extends Controller
@@ -915,7 +918,7 @@ class TechnologController extends Controller
         $productall = Product::all();
         $food = Food_composition::where('food_name_id', $id)->join('food', 'food.id', '=', 'food_compositions.food_name_id')
                         ->join('products', 'products.id', '=', 'food_compositions.product_name_id')
-                        ->get(['food_compositions.product_weight','food_compositions.id', 'food.food_name','products.id as productid','products.product_name']);
+                        ->get(['food_compositions.product_weight','food_compositions.id', 'food.food_name', 'food_compositions.age_id','products.id as productid','products.product_name']);
         // dd($food);
         $ages= Age_range::all();
         foreach($food as $item){
@@ -1452,12 +1455,12 @@ class TechnologController extends Controller
     }
 
 
-     public function createregion(Request $request)
+    public function createregion(Request $request)
     {
         Region::create([
             'region_name'=> $request->name,
         ]);
-        return $this->seeregions();
+        return redirect()->route('technolog.seeregions');
     }
 
     public function seekingardens(){
@@ -1479,8 +1482,7 @@ class TechnologController extends Controller
         $tags = $request->yongchek;
         $kind->age_range()->sync($tags);
 
-        Artisan::call('cache:clear');
-        return $this->seekingardens();
+        return redirect()->route('technolog.seekingardens');
     }
 
     public function addkingardens(){
@@ -1491,11 +1493,69 @@ class TechnologController extends Controller
 
     public function productadd(){
         $sizes = Size::all();
+        $norms = Norm_category::all();
         $categoryes = Product_category::all();
-        return view('technolog.productadd', ['sizes'=>$sizes, 'categories'=>$categoryes]);
+        return view('technolog.productadd', ['sizes'=>$sizes, 'categories'=>$categoryes, 'norms' => $norms]);
     }
 
-    
+    public function createproduct(Request $request){
+
+        // dd($request->all());
+        Product::create([
+            'product_name' => $request->name,
+            'size_name_id' => $request->sizeid,
+            'category_name_id' => $request->catid,
+            'norm_cat_id' => $request->normcatid,
+            'product_image' => "...",
+            'div' => $request->div,
+            'sort' => 1,
+            'term' => $request->term,
+            'product_oqsil' => 0,
+            'product_yog' => 0,
+            'product_uglevot' => 0,
+            'product_ener' => 0
+        ]);
+
+        return redirect()->route('technolog.allproducts');
+    }
+    // chef 
+    public function allchefs(){
+        $users = User::where('role_id', 6)->get();
+        // dd($users);
+
+        return view('technolog.allchefs', compact('users'));
+    }
+
+    public function addchef(){
+        $kindgardens = Kindgarden::with('user')->get();
+        // foreach($kindgardens as $row){
+        //     if($row->user->count() > 0){
+
+        //     }
+        // }
+
+        return view('technolog.addchef', compact('kindgardens'));
+    }
+
+    public function createchef(Request $request){
+        // dd($request->all());
+        $user =  User::create([
+            'role_id' => 6,
+            'name' => $request->name,
+            'email' => $request->email,
+            'avatar' => "users/default.png",
+            'email_verified_at' => NULL,
+            'password' => bcrypt($request->password),
+            'remember_token' => Str::random(60),
+            'settings' => NULL,
+        ]);
+
+        $tags = $request->kinid;
+        $user->kindgarden()->sync($tags);
+
+        return redirect()->route('technolog.allchefs');
+    }
+    // end chif
 
 
     //  /////////////////////////////////////////

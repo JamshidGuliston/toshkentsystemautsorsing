@@ -46,5 +46,12 @@ class RolesTableSeeder extends Seeder
                 'display_name' => 'bugalter',
             ])->save();
         }
+
+        $role = Role::firstOrNew(['name' => 'Oshpaz']);
+        if (!$role->exists) {
+            $role->fill([
+                'display_name' => 'Oshpaz',
+            ])->save();
+        }
     }
 }
