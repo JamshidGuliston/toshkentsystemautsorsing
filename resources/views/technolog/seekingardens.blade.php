@@ -26,16 +26,7 @@
 
 <script>
 
-        // const myTimeout = setTimeout(myGreeting, 5000);
 
-        // function myGreeting() {
-        // window.location.href='seekingardens';
-        // }
-
-        // function myStopFunction() {
-        // clearTimeout(myTimeout);
-        // }
-        
         
 
 </script>

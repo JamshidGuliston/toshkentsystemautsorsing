@@ -21,6 +21,11 @@ class DatabaseSeeder extends Seeder
             SeasonsTableSeeder::class,
             UsersTableSeeder::class,
             SizeTableSeeder::class,
+            Food_categoryTableSeeder::class,
+            product_categoriesTableSeeder::class,
+            noyuksTableSeeder::class,
+            Norm_categoryTableSeeder::class,
+            NormTableSeeder::class
         ]);
     }
 }

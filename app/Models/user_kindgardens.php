@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Food_category extends Model
+class user_kindgardens extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-		'food_cat_name',
-	];
 }

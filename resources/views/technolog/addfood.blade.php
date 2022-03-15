@@ -33,17 +33,31 @@
                 <input type="text" name="name" class="form-control" id="staticEmail" required>
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Оғирлиги: </label>
+            <div class="col-sm-10">
+                <input type="text" name="foodwight" class="form-control" id="staticEmail" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Овқат каллорияси: </label>
+            <div class="col-sm-10">
+                <input type="text" name="foodcall" class="form-control" id="staticEmail" required>
+            </div>
+        </div>
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Сатегория</label>
             <div class="col-sm-10">
-                <select class="form-select" name="catid" aria-label="Default select example">
-                    @foreach($categories as $row)
+                <select class="form-select" name="catid" required aria-label="Default select example">
+                <option value="" >--Tanlang--</option>      
+                @foreach($categories as $row)
                     <option value="{{$row['id']}}">{{$row['food_cat_name']}}</option>
                     @endforeach
                 </select>
             </div>
         </div>
-
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Овқат вақти</label>
             <div class="col-sm-10">
@@ -55,7 +69,6 @@
                 </select>
             </div>
         </div>
-    
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">

@@ -42,13 +42,24 @@
             </div>
             <div class="modal-body editesproduct">
                     <select class="form-select" name="productid" required aria-label="Default select example">
-                        <option value="">--Mahsulotlar--</option>
+                        <option  class="selected"></option>
                         @foreach($productall as $all)
                         @if(!isset($all['ok']))
                         <option value="{{$all['id']}}">{{$all['product_name']}}</option>
                         @endif
                         @endforeach
                     </select>
+                    <div class="row">
+
+                        <div class="col-md-12 mt-3">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control inpweight" name="foodweight">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">grram</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
             <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button> -->
@@ -73,7 +84,7 @@
         @csrf
         <input type="hidden" name="titleid" value="{{$id}}">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="product-select">
                     <select class="form-select" name="productid" required aria-label="Default select example">
                         <option value="">--Mahsulotlar--</option>
@@ -85,10 +96,13 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="sub" style="display: flex;justify-content: end;">
-                    <button class="btn btn-dark">Qo'shish</button>
-                </div>
+            @foreach($ages as $row)
+            <div class="col-md-{{ 9 / count($ages) }}">
+                <input type="text" class="form-control" name="foodweight[]" placeholder="gram {{ $row->age_name }}" required>
+            </div>
+            @endforeach
+            <div class="sub" style="display: flex;justify-content: end; margin-top: 10px">
+                <button class="btn btn-dark">Qo'shish</button>
             </div>
         </div>
     </form>
@@ -102,6 +116,8 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Maxsulot</th>
+                        <th scope="cal">Og'irligi</th>
+                        <th scope="cal">Yosh oraliq</th>
                         <th scope="col" style="text-align: end;">Tahrirlash</th>
                     </tr>
                 </thead>
@@ -111,7 +127,17 @@
                     <tr>
                         <th scope="row">{{ ++$i }}</th>
                         <td>{{ $item->product_name }}</td>
-                        <td style="text-align: end;"><i data-edites-id="{{ $item->id }}" class="editess far fa-edit text-info" data-bs-toggle="modal" data-bs-target="#exampleModal" data-kinid="" style="cursor: pointer; margin-right: 16px;"> </i><i class="detete  fa fa-trash" aria-hidden="true" data-delet-id="{{$item->id}}" data-bs-toggle="modal" style="cursor: pointer;" data-bs-target="#exampleModalss"></i></td>
+                        <td>{{ $item->product_weight }}</td>
+                        <td>
+                        @if($item->age_id == 1)
+                            {{ "4-7 Ёш " }}
+                        @elseif($item->age_id == 2)
+                            {{ "3-4 Ёш " }}
+                        @else
+                            {{ "Қисқа гурух" }}
+                        @endif
+                        </td>
+                        <td style="text-align: end;"><i data-edites-id="{{ $item->id }}" data-praduct-id="{{$item->productid}}" data-weight="{{$item->product_weight}}" class="editess far fa-edit text-info" data-bs-toggle="modal" data-product-name="{{$item->product_name}}" data-bs-target="#exampleModal" data-kinid="" style="cursor: pointer; margin-right: 16px;"> </i><i class="detete  fa fa-trash" aria-hidden="true"  data-delet-id="{{$item->id}}" data-bs-toggle="modal" style="cursor: pointer;" data-bs-target="#exampleModalss"></i></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -130,6 +156,14 @@
         $('.editess').click(function() {
             var g = $(this).attr('data-edites-id');
             var div = $('#hiddenid');
+            var sected=$('.selected');
+            var wight=$(this).attr('data-weight');
+            var inpwight=$('.inpweight');
+                inpwight.val(wight);
+            var product=$(this).attr('data-praduct-id');
+            var product_name=$(this).attr('data-product-name');
+            sected.val(product);
+            sected.text(product_name);
             div.html("<input type='hidden' name='id' value="+g+">");
         });
 

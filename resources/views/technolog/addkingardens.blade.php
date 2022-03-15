@@ -51,15 +51,15 @@
         </div>
         <div class="form-group row">
 
-<label for="inputPassword" class="col-sm-3 col-form-label">Bolalar guruhi</label>
-@foreach($ages as $rows)
-<?php $i = 1; ?>
-<div class="col-sm-3"> 
-    <input class="form-check-input" name="yongchek[]" type="checkbox" id="inlineCheckbox1" value="{{$rows['id']}}">
-    <label class="form-check-label" for="inlineCheckbox1">{{$rows['age_name']}}</label>
-</div>
-@endforeach
-</div>
+        <label for="inputPassword" class="col-sm-3 col-form-label">Bolalar guruhi</label>
+        @foreach($ages as $rows)
+        <?php $i = 1; ?>
+        <div class="col-sm-3"> 
+            <input class="form-check-input" name="yongchek[]" type="checkbox" id="inlineCheckbox1" value="{{$rows['id']}}">
+            <label class="form-check-label" for="inlineCheckbox1">{{$rows['age_name']}}</label>
+        </div>
+        @endforeach
+        </div>
         
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Ish faoliyati</label>
@@ -74,7 +74,7 @@
             </div>
         </div>
     </form>
-    <a href="/technolog/shops">Orqaga</a>
+    <a href="/technolog/seekingardens">Orqaga</a>
 </div>
 @endsection
 
@@ -82,7 +82,10 @@
 @section('script')
 
 <script>
-
+ const reloadUsingLocationHash = () => {
+      window.location.hash = "reload";
+    }
+    window.onload = reloadUsingLocationHash();
 </script>
 
 @endsection
