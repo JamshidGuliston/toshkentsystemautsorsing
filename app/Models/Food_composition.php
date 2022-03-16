@@ -13,7 +13,8 @@ class Food_composition extends Model
         'food_name_id',
     	'product_name_id',
         'age_id',
-        'product_weight'
+        'product_weight',
+        'product_weight2'
 	];
     
 }

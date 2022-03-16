@@ -21,7 +21,8 @@ class Product extends Model
         'product_oqsil',
         'product_yog',
         'product_uglevot',
-        'product_ener'
+        'product_ener',
+        'hide'
     ];
 
     public function shop(){

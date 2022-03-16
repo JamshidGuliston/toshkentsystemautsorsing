@@ -18,6 +18,7 @@ class CreateFoodCompositionsTable extends Migration
             $table->integer('food_name_id')->references('id')->on('food');
             $table->integer('product_name_id')->references('id')->on('products');
             $table->double('product_weight', 8, 3);
+            $table->double('product_weight2', 8, 3);
             $table->timestamps();
         });
     }

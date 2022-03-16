@@ -918,7 +918,7 @@ class TechnologController extends Controller
         $productall = Product::all();
         $food = Food_composition::where('food_name_id', $id)->join('food', 'food.id', '=', 'food_compositions.food_name_id')
                         ->join('products', 'products.id', '=', 'food_compositions.product_name_id')
-                        ->get(['food_compositions.product_weight','food_compositions.id', 'food.food_name', 'food_compositions.age_id','products.id as productid','products.product_name']);
+                        ->get(['food_compositions.product_weight', 'food_compositions.product_weight2', 'food_compositions.id', 'food.food_name', 'food_compositions.age_id','products.id as productid','products.product_name']);
         // dd($food);
         $ages= Age_range::all();
         foreach($food as $item){
@@ -946,6 +946,7 @@ class TechnologController extends Controller
                     'product_name_id' => $request->productid,
                     'age_id' => $key+1,
                     'product_weight' => $value,
+                    'product_weight2' => $request->foodweight2[$key],
                 ]);
             }
         }
@@ -1058,6 +1059,7 @@ class TechnologController extends Controller
                     'products.id as productid', 
                     'age_ranges.id as ageid', 
                     'menu_compositions.weight',
+                    'menu_compositions.weight2',
                     'menu_compositions.id'
                 ]); 
         // dd($menuitem);
@@ -1122,7 +1124,15 @@ class TechnologController extends Controller
                         <th scope='col'>...</th>
                         <th scope='col'>Maxsulot</th>";
         foreach($menu->age_range as $row){
-            $html = $html."<th scope='col'>".$row['age_name']."</th>";
+            $html = $html."<th scope='col' colspan='2' style='text-align: center;'>".$row['age_name']."</th>";
+        }
+        $html = $html."</tr>
+        			<tr>
+                    	<th scope='col'></th>
+                        <th scope='col'></th>
+                        ";
+        foreach($menu->age_range as $row){
+            $html = $html."<th scope='col' style='font-size: 13px'>Ch-li</th><th scope='col' style='font-size: 13px'>Ch-siz</th>";
         }
         $html = $html."</tr>
                 </thead>
@@ -1135,7 +1145,7 @@ class TechnologController extends Controller
                 <td><input type='hidden' name='products[]' value='".$foodcom[$i]['id']."'></td>
                 <td>".$foodcom[$i]['product_name']."</td>";
                 foreach($menu->age_range as $row){
-                    $html = $html."<td><input type='text' name='ages".$foodcom[$i]['id']."[]' value='".$foodcom[$i++]['product_weight']."' required style='width: 100%;'></td>";
+                    $html = $html."<td><input type='text' name='ages".$foodcom[$i]['id']."[]' value='".$foodcom[$i]['product_weight']."' required style='width: 100%;'></td><td><input type='text' name='ages2".$foodcom[$i]['id']."[]' value='".$foodcom[$i++]['product_weight2']."' required style='width: 100%;'></td>";
                 }
                 $i--;
                 $html = $html."</tr>";
@@ -1154,6 +1164,7 @@ class TechnologController extends Controller
         foreach($request->products as $product)
         {
             $ages = "ages".$product;
+            $agess = "ages2".$product;
             $t = 0;
             foreach($menu->age_range as $age)
             {
@@ -1164,7 +1175,8 @@ class TechnologController extends Controller
                     'menu_food_id' => $request->foodid,
                     'product_name_id' => $product,
                     'age_range_id' => $age->id,
-                    'weight' => $request[$ages][$t++]
+                    'weight' => $request[$ages][$t],
+                    'weight2' => $request[$agess][$t++]
                 ]);
             }
 
@@ -1181,7 +1193,7 @@ class TechnologController extends Controller
                 ->where('menu_food_id', $request->foodid)
                 ->where('product_name_id', $request->prodid)
                 ->join('products', 'products.id', '=', 'menu_compositions.product_name_id')
-                ->get(['menu_compositions.id', 'products.product_name', 'age_range_id', 'weight']);
+                ->get(['menu_compositions.id', 'products.product_name', 'age_range_id', 'weight', 'weight2']);
         // dd($foodcom);
         $html = "<table class='table table-light table-striped table-hover'>
                 <thead>
@@ -1189,7 +1201,7 @@ class TechnologController extends Controller
                         <th scope='col'>...</th>
                         <th scope='col'>Maxsulot</th>";
         foreach($menu->age_range as $row){
-            $html = $html."<th scope='col'>".$row['age_name']."</th>";
+            $html = $html."<th scope='col' colspan='2'>".$row['age_name']."</th>";
         }
         $html = $html."</tr>
                 </thead>
@@ -1199,7 +1211,8 @@ class TechnologController extends Controller
                 <td></td>
                 <td>".$foodcom[$it]['product_name']."</td>";
                 foreach($menu->age_range as $row){
-                    $html = $html."<td><input type='text' name='ages[]' value='".$foodcom[$it]['weight']."' required style='width: 100%;'></td>";
+                    $html = $html."<td><input type='text' name='ages[]' value='".$foodcom[$it]['weight']."' required style='width: 100%;'></td>
+                    <td><input type='text' name='agess[]' value='".$foodcom[$it]['weight2']."' required style='width: 100%;'></td>";
                     $html = $html."<input type='hidden' name='rows[]' value='".$foodcom[$it]['id']."'>";
                     $it++;
                 }
@@ -1495,7 +1508,7 @@ class TechnologController extends Controller
         $sizes = Size::all();
         $norms = Norm_category::all();
         $categoryes = Product_category::all();
-        return view('technolog.productadd', ['sizes'=>$sizes, 'categories'=>$categoryes, 'norms' => $norms]);
+        return view('technolog.productAdd', ['sizes'=>$sizes, 'categories'=>$categoryes, 'norms' => $norms]);
     }
 
     public function createproduct(Request $request){
@@ -1513,7 +1526,8 @@ class TechnologController extends Controller
             'product_oqsil' => 0,
             'product_yog' => 0,
             'product_uglevot' => 0,
-            'product_ener' => 0
+            'product_ener' => 0,
+          	'hide' => $request->hide
         ]);
 
         return redirect()->route('technolog.allproducts');

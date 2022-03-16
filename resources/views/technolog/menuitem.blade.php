@@ -194,7 +194,7 @@
                             <td rowspan="{{ round($fd/count($titlemenu->age_range)) }}" style="text-align: center;">{{ $menuitem[$it]['food_name'] }} <i class="fas fa-minus-circle fooddel" data-menu-id="{{ $menuitem[$it]['menuid'] }}" data-time-id="{{ $menuitem[$it]['meal_timeid'] }}" data-food-id="{{ $menuitem[$it]['foodid'] }}" data-foodname-id="{{ $menuitem[$it]['food_name'] }}" style="color: #da1313; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteModalfood"></i></td>
                             <td>{{ $menuitem[$it]['product_name'] }}</td>
                             @foreach($titlemenu->age_range as $row)
-                            <td style="text-align: end;">{{ $menuitem[$it]['weight']." гр" }}</td>
+                            <td style="text-align: end;">{{ $menuitem[$it]['weight']." - ".$menuitem[$it]['weight2']." гр" }}</td>
                             <?php $it++; ?>
                             @endforeach
                             <?php $it--;?>
@@ -218,7 +218,7 @@
                             <td rowspan="{{ round($fd/count($titlemenu->age_range)) }}" style="text-align: center;">{{ $menuitem[$it]['food_name'] }} <i class="fas fa-minus-circle fooddel" data-menu-id="{{ $menuitem[$it]['menuid'] }}" data-time-id="{{ $menuitem[$it]['meal_timeid'] }}" data-food-id="{{ $menuitem[$it]['foodid'] }}" data-foodname-id="{{ $menuitem[$it]['food_name'] }}" style="color: #da1313; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#deleteModalfood"></i></td>
                             <td>{{ $menuitem[$it]['product_name'] }}</td>
                             @foreach($titlemenu->age_range as $row)
-                            <td style="text-align: end;">{{ $menuitem[$it]['weight']." гр" }}</td>
+                            <td style="text-align: end;">{{ $menuitem[$it]['weight']." - ".$menuitem[$it]['weight2']." гр" }}</td>
                             <?php $it++; ?>
                             @endforeach
                             <?php $it--;?>
@@ -231,7 +231,8 @@
                         <tr>
                             <td>{{ $menuitem[$it]['product_name'] }}</td>
                             @foreach($titlemenu->age_range as $row)
-                            <td style="text-align: end;">{{ $menuitem[$it]['weight']." гр" }}</td>
+                            <td style="text-align: end;">{{ "CHLI-".$menuitem[$it]['weight']." - " . $menuitem[$it]['weight2']." гр" }}</td>
+                            <td style="text-align: end;"></td>
                             <?php $it++; ?>
                             @endforeach
                             <?php $it--;?>

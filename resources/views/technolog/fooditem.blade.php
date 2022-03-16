@@ -98,7 +98,8 @@
             </div>
             @foreach($ages as $row)
             <div class="col-md-{{ 9 / count($ages) }}">
-                <input type="text" class="form-control" name="foodweight[]" placeholder="gram {{ $row->age_name }}" required>
+                <input type="text" class="form-control" name="foodweight[]" placeholder="Chiqitili {{ $row->age_name }}" required>
+              <input type="text" class="form-control" style="margin-top: 5px" name="foodweight2[]" placeholder="Chiqitisiz {{ $row->age_name }}" required>
             </div>
             @endforeach
             <div class="sub" style="display: flex;justify-content: end; margin-top: 10px">
@@ -116,7 +117,8 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Maxsulot</th>
-                        <th scope="cal">Og'irligi</th>
+                        <th scope="cal">Chiqitli</th>
+                      	<th scope="cal">Chiqitsiz</th>
                         <th scope="cal">Yosh oraliq</th>
                         <th scope="col" style="text-align: end;">Tahrirlash</th>
                     </tr>
@@ -128,6 +130,7 @@
                         <th scope="row">{{ ++$i }}</th>
                         <td>{{ $item->product_name }}</td>
                         <td>{{ $item->product_weight }}</td>
+                        <td>{{ $item->product_weight2 }}</td>
                         <td>
                         @if($item->age_id == 1)
                             {{ "4-7 Ёш " }}

@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->double('product_yog', 8, 3);
             $table->double('product_uglevot', 8, 3);
             $table->double('product_ener', 8, 3);
+          	$table->boolean('hide');
             $table->timestamps();
         });
     }

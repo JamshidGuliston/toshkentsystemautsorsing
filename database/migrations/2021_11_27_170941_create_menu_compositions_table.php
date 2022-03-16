@@ -21,6 +21,7 @@ class CreateMenuCompositionsTable extends Migration
             $table->integer('product_name_id');
             $table->integer('age_range_id');
             $table->double('weight', 8, 5);
+            $table->double('weight2', 8, 5);
             $table->timestamps();
         });
     }
