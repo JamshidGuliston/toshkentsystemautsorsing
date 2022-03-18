@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/app.css?ver=1.0" />
     <link rel="stylesheet" href="/css/storage/date.css" />
     <link rel="icon" href="https://icon-library.com/images/art-icon-png/art-icon-png-29.jpg"/>
-    <title>|----|</title>
+    <title>system</title>
     @yield('css')
 </head>
 
