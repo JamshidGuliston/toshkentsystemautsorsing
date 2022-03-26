@@ -5,9 +5,70 @@
 @endsection
 
 @section('content')
+<!-- NormaModal -->
+<div class="modal editesmodal fade" id="normModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Нормани текшириш</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="product-select">
+                        <select id="start" onchange="start()" class="form-select" required aria-label="Default select example">
+                            <option value="">0</option>
+                            <?php
+                                $t = 1;
+                            ?>
+                            @foreach($menus as $row)
+                            <option value="{{$row['id']}}">{{ $t++ }}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="product-select">
+                        <select id="end" onchange="end()" class="form-select" required aria-label="Default select example">
+                            <option value="">0</option>
+                            <?php
+                                $t = 1;
+                            ?>
+                            @foreach($menus as $row)
+                            <option value="{{$row['id']}}">{{ $t++ }}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="product-select">
+                        <select id="age" onchange="age()" class="form-select" required aria-label="Default select example">
+                            <option value="">-Tanlang-</option>
+                            <?php
+                                $t = 1;
+                            ?>
+                            @foreach($ages as $row)
+                            <option value="{{$row['id']}}">{{ $row['age_name'] }}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body composition"> 
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End  -->
 <div class="container-fluid px-4">
     <div style="text-align: end;">
-        <a href="/technolog/addtitlemenu/{{ $id }}">+ qo'shish</a>
+        <button class="btn" data-bs-toggle="modal" data-bs-target="#normModal" style="margin-right: 120px; background-color: lightblue;">Norma</button>
+        <button class="btn btn-success"><a href="/technolog/addtitlemenu/{{ $id }}" style="color: white">+ qo'shish</a></button>
     </div>
     <div class="row g-3 my-2">
         @foreach($menus as $row)
@@ -30,4 +91,36 @@
     </div>
     <a href="/technolog/seasons">Orqaga</a>
 </div>
+@endsection
+
+@section('script')
+<script>
+    function start(){
+        var x = document.getElementById("start").value;
+    };
+
+    function end(){
+
+    };
+
+    function age(){
+        var a = document.getElementById("start").value;
+        var b = document.getElementById("end").value;
+        var s = 2;
+        var div = $('.composition');
+        $.ajax({
+            method: "GET",
+            url: '/technolog/concnorm',
+            data: {
+                'a': a,
+                'b': b,
+                'season': s
+            },
+            success: function(data) {
+                div.html(data);
+            }
+        })
+    };
+
+</script>
 @endsection

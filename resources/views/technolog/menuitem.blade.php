@@ -231,8 +231,7 @@
                         <tr>
                             <td>{{ $menuitem[$it]['product_name'] }}</td>
                             @foreach($titlemenu->age_range as $row)
-                            <td style="text-align: end;">{{ "CHLI-".$menuitem[$it]['weight']." - " . $menuitem[$it]['weight2']." гр" }}</td>
-                            <td style="text-align: end;"></td>
+                            <td style="text-align: end;">{{ $menuitem[$it]['weight']." - " . $menuitem[$it]['weight2']." гр" }}</td>
                             <?php $it++; ?>
                             @endforeach
                             <?php $it--;?>

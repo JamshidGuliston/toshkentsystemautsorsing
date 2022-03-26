@@ -999,9 +999,9 @@ class TechnologController extends Controller
 
     public function menus(Request $request, $id)
     {
-
-        $menus = Titlemenu::all();
+        $menus = Titlemenu::where('titlemenu_season_id', $id)->get();
         // dd($menus);
+        $ages = Age_range::all();
         $works = Nextday_namber::all();
         for($i = 0; $i < count($menus); $i++){
             $menus[$i]['us'] = 0;
@@ -1011,7 +1011,7 @@ class TechnologController extends Controller
                 }
             }
         }
-        return view('technolog.menus', compact('menus', 'id', 'works'));
+        return view('technolog.menus', compact('menus', 'id', 'works', 'ages'));
     }
 
     public function addtitlemenu(Request $request, $id)
@@ -1570,7 +1570,24 @@ class TechnologController extends Controller
         return redirect()->route('technolog.allchefs');
     }
     // end chif
+    // start concnorm
+    public function concnorm(Request $request){
 
+        $html = "<table class='table table-light table-striped table-hover'>
+                <thead>
+                    <tr>
+                        <th scope='col'>...</th>
+                        <th scope='col'>Maxsulot</th>";
+
+        $html = $html."</tr>
+                </thead>
+                <tbody>";
+        $html = $html."</tbody>
+            </table>";
+        
+        return $html;
+    }
+    // end
 
     //  /////////////////////////////////////////
 

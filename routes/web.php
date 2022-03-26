@@ -148,6 +148,8 @@ Route::group(['prefix' => 'technolog', 'middleware' => ['isTechnolog', 'auth']],
     Route::post('createchef', [Technologcontroller::class, 'createchef'])->name('technolog.createchef');
     Route::get('chefsettings', [Technologcontroller::class, 'chefsettings'])->name('technolog.chefsettings');
     
+    Route::get('concnorm', [Technologcontroller::class, 'concnorm'])->name('technolog.concnorm');
+    
 });
 
 Route::group(['prefix' => 'chef', 'middleware' => ['isChef', 'auth']], function () {
